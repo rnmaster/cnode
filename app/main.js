@@ -17,8 +17,9 @@ import {
     TouchableHighlight,
     Navigator
 } from 'react-native';
-import {RQ} from './utils'
-import Detail from './detail'
+
+import {RQ} from 'app/utils'
+import Detail from 'app/detail'
 export default class extends Component {
     constructor(props){
         super(props)
@@ -88,7 +89,7 @@ export default class extends Component {
                                 <Text>{v.reply_count}/{v.visit_count}</Text>
                             </View>
                             <View>
-                                <Text>创建于:{v.create_at}</Text>
+                                <Text>创建于:{GLOBAL.moment(v.create_at).fromNow()}</Text>
                             </View>
                         </View>
                     </View>

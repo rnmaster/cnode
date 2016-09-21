@@ -16,7 +16,10 @@ import {
     Platform,
     BackAndroid
 } from 'react-native';
-import {RQ} from './utils'
+import moment from 'moment'
+require('moment/locale/zh-cn');
+moment.locale('zh-cn')
+import {RQ} from 'app/utils'
 import Main from 'app/main'
 //import { Toast, WhiteSpace, WingBlank, Button } from 'antd-mobile';
 //import Toast from 'antd-mobile/lib/Toast';
@@ -69,6 +72,8 @@ export default class extends Component {
     };
 
 }
+
+GLOBAL.moment = moment
 
 const styles = StyleSheet.create({
 

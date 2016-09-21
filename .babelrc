@@ -5,6 +5,10 @@
   "plugins": [
     ["babel-plugin-module-alias", [
       { "src": "./app", "expose": "app" },
-    ]]
+    ]],
+    ["antd", {
+      "libraryName":"antd-mobile",
+    }],
+    "transform-decorators-legacy"
   ]
 }
