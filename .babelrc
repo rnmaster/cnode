@@ -5,6 +5,7 @@
   "plugins": [
     ["babel-plugin-module-alias", [
       { "src": "./app", "expose": "app" },
+      { "src": "./app/component", "expose": "component" },
     ]]
   ]
 }
