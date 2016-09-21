@@ -6,10 +6,12 @@ import {
     ScrollView,
     View,
     Text,
-    Image
+    Image,
+    TouchableOpacity
 } from 'react-native'
 import React, { Component } from 'react';
 import {RQ} from './utils'
+import Reply from './reply'
 export default class extends Component {
     // 构造
       constructor(props) {
@@ -19,7 +21,12 @@ export default class extends Component {
             res: {}
         };
       }
-
+    jumpReply(){
+        const {navigator} = this.props
+        nav.push({component:Reply,params:{
+            topicId:id,res:this.state.res
+        }})
+    }
     async componentDidMount() {
         const {topicId} = this.props
         let res = await RQ.get('/api/v1/topic/'+topicId,null,"https://cnodejs.org")
@@ -62,6 +69,9 @@ export default class extends Component {
                             source={{html:this.state.res.content}}
                         />
                     </View>
+                    <TouchableOpacity style={{position:'absolute',bottom:30,right:30,width:50,height:50,backgroundColor:'#80bd01',borderRadius:25,justifyContent:'center',alignItems:'center'}}  activeOpacity={0.9} onPress={()=>this.jumpReply()}>
+                        <Image source={require('asset/reply.png')} style={{height:28,width:28}}/>
+                    </TouchableOpacity>
             </View>
         )
 

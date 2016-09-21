@@ -17,9 +17,9 @@ import {
     TouchableHighlight,
     Navigator
 } from 'react-native';
-
-import {RQ} from 'app/utils'
-import Detail from 'app/detail'
+import {RQ} from './utils'
+import Detail from './detail'
+import ActivityIndicator from 'component/ActivityIndicator'
 export default class extends Component {
     constructor(props){
         super(props)
@@ -30,7 +30,8 @@ export default class extends Component {
         this.state = {
             listView :msgListView,
             data:data,
-            pullLoading:false
+            pullLoading:false,
+            loadMore:false
         }
     }
 
@@ -55,6 +56,9 @@ export default class extends Component {
         })
     }
     async getMoreData(){
+        this.setState({
+            loadMore:true
+        })
         let page = this.state.page +1
         let res = await RQ.get('/api/v1/topics',{page:page},"https://cnodejs.org")
         //console.log(res)
@@ -63,7 +67,8 @@ export default class extends Component {
         this.setState({
             listView:this.state.listView.cloneWithRows(data),
             data:data,
-            page:page
+            page:page,
+            loadMore:false
         })
     }
     getDetail(id,nav){
@@ -121,6 +126,7 @@ export default class extends Component {
                     onEndReachedThreshold={20}
                     onEndReached={()=>this.getMoreData()}
                 />
+                {this.state.loadMore?<ActivityIndicator/>:null}
             </View>
         );
     }
