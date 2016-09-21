@@ -23,7 +23,7 @@ import Main from 'app/main'
 export default class extends Component {
     constructor(props){
         super(props)
-        //console.disableYellowBox = true;
+        console.disableYellowBox = true;
     }
     _renderScene(route, navigator){
         let Component = route.component
