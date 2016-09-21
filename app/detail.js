@@ -22,9 +22,9 @@ export default class extends Component {
         };
       }
     jumpReply(){
-        const {navigator} = this.props
-        nav.push({component:Reply,params:{
-            topicId:id,res:this.state.res
+        const {navigator,topicId} = this.props
+        navigator.push({component:Reply,params:{
+            topicId:topicId,res:this.state.res
         }})
     }
     async componentDidMount() {
