@@ -12,18 +12,22 @@ import {
     StatusBar,
     Image,
     TouchableHighlight,
-    Navigator
+    Navigator,
+    Platform,
+    BackAndroid
 } from 'react-native';
 import {RQ} from './utils'
-import Main from './main'
-import moment from 'moment'
+import Main from 'app/main'
+//import { Toast, WhiteSpace, WingBlank, Button } from 'antd-mobile';
+//import Toast from 'antd-mobile/lib/Toast';
 export default class extends Component {
     constructor(props){
         super(props)
         //console.disableYellowBox = true;
     }
     _renderScene(route, navigator){
-        let Component = route.component;
+        let Component = route.component
+        //var c = require(`app/${route.id}.js`)
         return <Component {...route.params} navigator={navigator} />
     }
     render() {
@@ -37,6 +41,33 @@ export default class extends Component {
             </View>
         );
     }
+    componentWillMount() {
+        if (Platform.OS === 'android') {
+            BackAndroid.addEventListener('hardwareBackPress', this.onBackAndroid);
+        }
+    }
+
+    componentWillUnMount() {
+        if (Platform.OS === 'android') {
+            BackAndroid.removeEventListener('hardwareBackPress', this.onBackAndroid);
+        }
+    }
+
+    onBackAndroid = () => {
+        const {navigator} = this.refs;
+        const routers = navigator.getCurrentRoutes();
+        if (routers.length > 1) {
+            navigator.pop();
+            return true;
+        }
+        if (this.lastBackPressed && this.lastBackPressed + 2000 >= Date.now()) {
+            return false;
+        }
+        this.lastBackPressed = Date.now();
+        //Toast.info('再按一次退出应用')
+        return true;
+    };
+
 }
 
 const styles = StyleSheet.create({

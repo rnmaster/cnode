@@ -18,7 +18,7 @@ import {
     Navigator
 } from 'react-native';
 import {RQ} from './utils'
-import moment from 'moment'
+import Detail from './detail'
 export default class extends Component {
     constructor(props){
         super(props)
@@ -38,14 +38,14 @@ export default class extends Component {
         })
     }
 
-    async getDetail(id){
-        let res = await RQ.get('/api/v1/topic/'+id,null,"https://cnodejs.org")
-        console.log(res)
+    getDetail(id,nav){
+        //let res = await RQ.get('/api/v1/topic/'+id,null,"https://cnodejs.org")
+        nav.push({component:Detail})
     }
-    renderRow(v){
+    renderRow(v,nav){
         return (
-            <TouchableHighlight underlayColor="transparent" onPress={()=>this.getDetail(v.id)}>
-                <View style={{paddingHorizontal:15,paddingVertical:15}} >
+            <TouchableHighlight underlayColor="transparent" onPress={()=>this.getDetail(v.id,nav)}>
+                <View style={{paddingHorizontal:15,paddingVertical:15,borderBottomWidth:1,borderColor:'#eee'}} >
                     <View style={{flexDirection:'row'}}>
                         <View style={{marginRight:5}}>{v.top?<Text>top</Text>:<Text>{v.tab}</Text>}</View>
                         <View style={{flex:1}}><Text numberOfLines={1}>{v.title}</Text></View>
@@ -72,7 +72,7 @@ export default class extends Component {
             <View style={{flex:1}}>
                 <ListView
                     dataSource={this.state.listView}
-                    renderRow={(v) =>  this.renderRow(v)}
+                    renderRow={(v) =>  this.renderRow(v,this.props.navigator)}
                 />
             </View>
         );

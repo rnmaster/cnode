@@ -3,8 +3,8 @@
  */
 import {
     WebView,
-    Component
 } from 'react-native'
+import React, { Component } from 'react';
 export default class extends Component {
     // 构造
       constructor(props) {
@@ -15,6 +15,13 @@ export default class extends Component {
 
 
     render(){
+        return (
+            <WebView
+                ref='webview'
+                style={{flex:1}}
+                source={{uri: 'http://baidu.com'}}
+            />
+        )
 
     }
 }
