@@ -12,6 +12,8 @@ import {
 import React, { Component } from 'react';
 import {RQ} from './utils'
 import Reply from './reply'
+import {createForm} from 'rc-form';
+@createForm()
 export default class extends Component {
     // 构造
       constructor(props) {
