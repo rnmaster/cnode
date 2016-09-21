@@ -126,7 +126,7 @@ export default class extends Component {
                     onEndReachedThreshold={20}
                     onEndReached={()=>this.getMoreData()}
                 />
-                {this.state.loadMore?<ActivityIndicator tip="正在拉取数据"/>:null}
+                {this.state.loadMore?<ActivityIndicator/>:null}
             </View>
         );
     }
