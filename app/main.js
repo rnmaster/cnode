@@ -19,7 +19,8 @@ import {
 } from 'react-native';
 import {RQ} from './utils'
 import Detail from './detail'
-import ActivityIndicator from 'component/ActivityIndicator'
+//import ActivityIndicator from 'component/ActivityIndicator'
+import {ActivityIndicator} from 'antd-mobile'
 export default class extends Component {
     constructor(props){
         super(props)
@@ -126,7 +127,10 @@ export default class extends Component {
                     onEndReachedThreshold={20}
                     onEndReached={()=>this.getMoreData()}
                 />
-                {this.state.loadMore?<ActivityIndicator/>:null}
+                {this.state.loadMore?<ActivityIndicator
+                    toast
+                    text="正在加载"
+                />:null}
             </View>
         );
     }

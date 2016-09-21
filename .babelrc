@@ -7,7 +7,6 @@
       { "src": "./app", "expose": "app" },
       { "src": "./app/component", "expose": "component" },
       { "src": "./app/asset", "expose": "asset" },
-    ]]
     ]],
     ["antd", {
       "libraryName":"antd-mobile",
