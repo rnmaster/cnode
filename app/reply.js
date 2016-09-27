@@ -10,9 +10,14 @@ import {
     TouchableOpacity,
     ListView,
     RefreshControl,
+
 } from 'react-native'
 import React, { Component } from 'react';
-import {RQ} from './utils'
+import {RQ,Kstore} from './utils'
+import KItem from './item'
+import Login from './login'
+import ToReply from './toReply'
+import {Toast} from 'antd-mobile'
 export default class extends Component {
     // 构造
     constructor(props) {
@@ -28,36 +33,30 @@ export default class extends Component {
         }
     }
 
-    componentDidMount() {
-        const {res} = this.props
-        console.log(res,"reply")
-        if(res.replies && res.replies.length>0){
+    async componentDidMount() {
+        const {res,topicId} = this.props
+        //Toast.info(res.replies.length+'&&&length')
+        if(res && res.replies && res.replies.length>0){
             this.setState({
                 data:res.replies,
                 listView:this.state.listView.cloneWithRows(res.replies)
             })
+        }else{
+            let Nres = await RQ.get('/api/v1/topic/'+topicId,null,"https://cnodejs.org")
+            console.log(Nres)
+            if(Nres.success){
+                //Toast.info("我进来了")
+                this.setState({
+                    data:Nres.data.replies,
+                    listView:this.state.listView.cloneWithRows(Nres.data.replies)
+                })
+            }
         }
     }
+
     renderRow(v,nav){
         return (
-            <View style={{borderBottomWidth:1,borderBottomColor:'#f7f7f7',paddingHorizontal:15,paddingVertical:15}}>
-                <View style={{flexDirection:'row',marginBottom:10}}>
-                    <Image
-                        source={{uri: v.author.avatar_url}}
-                        style={{width: 40, height: 40,borderRadius:20,marginLeft:15,marginRight:10}}
-                    />
-                    <View style={{flex:1,justifyContent :'space-between'}}>
-                        <View>
-                            <Text>{v.author.loginname}</Text>
-                        </View>
-                    </View>
-                </View>
-                <WebView
-                    style={{flex:1}}
-                    source={{html:v.content}}
-                    scalesPageToFit={true}
-                />
-            </View>
+            <KItem data={v} navigator = {nav}/>
         )
     }
     async getRefreshData(){
@@ -68,6 +67,23 @@ export default class extends Component {
                 data:res.data.replies,
                 listView:this.state.listView.cloneWithRows(res.data.replies)
             })
+        }
+    }
+    async authReply(){
+        let res = await Kstore.get('member')
+        let nav = this.props.navigator
+        const {topicId} = this.props
+        if(res){
+            Toast.info(res.loginName+'已经登录')
+            nav.replace({component:ToReply,params:{
+                topicId:topicId
+            }})//没有登录跳去登录
+        }else{
+            nav.replace({component:Login,params:{
+                des:'ToReply',
+                topicId:topicId,
+            }})//没有登录跳去登录
+            //Toast.info('没有登录')
         }
     }
     render(){
@@ -87,9 +103,10 @@ export default class extends Component {
                           />
                     }
                 />
-                <View style={{alignItems:'center',backgroundColor:'#80bd01',justifyContent:'center',height:40}}>
+                <TouchableOpacity onPress={()=>this.authReply()}
+                      style={{alignItems:'center',backgroundColor:'#80bd01',justifyContent:'center',height:40}}>
                     <Text style={{color:'#fff'}}>点击发帖</Text>
-                </View>
+                </TouchableOpacity>
             </View>
         )
 

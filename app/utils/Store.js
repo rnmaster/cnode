@@ -7,7 +7,7 @@ import {
 
 get = async (name)=>{
     let res = await AsyncStorage.getItem(name)
-    return res?JSON.parse(res):''
+    return res?JSON.parse(res):undefined
 }
 set = async (name,val)=>{
     let store = JSON.stringify(val||{})

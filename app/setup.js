@@ -21,8 +21,9 @@ require('moment/locale/zh-cn');
 moment.locale('zh-cn')
 import {RQ} from 'app/utils'
 import Main from 'app/main'
+import Login from 'app/login'
 //import { Toast, WhiteSpace, WingBlank, Button } from 'antd-mobile';
-//import Toast from 'antd-mobile/lib/Toast';
+import {Toast} from 'antd-mobile'
 export default class extends Component {
     constructor(props){
         super(props)
@@ -67,7 +68,7 @@ export default class extends Component {
             return false;
         }
         this.lastBackPressed = Date.now();
-        //Toast.info('再按一次退出应用')
+        Toast.info('再按一次退出应用')
         return true;
     };
 

@@ -3,4 +3,5 @@
  */
 import RQ from './RQ'
 import Kstore from './Store'
-module.exports = {RQ,Kstore}
+import Filter from './Filter'
+module.exports = {RQ,Kstore,Filter}

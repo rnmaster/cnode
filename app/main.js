@@ -1,9 +1,6 @@
 /**
  * Created by hkc on 2016/9/21.
  */
-/**
- * Created by hkc on 16/9/20.
- */
 import React, { Component } from 'react';
 import {
     AppRegistry,
@@ -17,7 +14,7 @@ import {
     TouchableHighlight,
     Navigator
 } from 'react-native';
-import {RQ} from './utils'
+import {RQ,Filter} from './utils'
 import Detail from './detail'
 //import ActivityIndicator from 'component/ActivityIndicator'
 import {ActivityIndicator} from 'antd-mobile'
@@ -38,7 +35,7 @@ export default class extends Component {
 
     async componentDidMount(){
         let res = await RQ.get('/api/v1/topics',null,"https://cnodejs.org")
-        console.log(res)
+        //console.log(res)
 
         this.setState({
             listView:this.state.listView.cloneWithRows(res.data),
@@ -83,7 +80,7 @@ export default class extends Component {
             <TouchableHighlight underlayColor="transparent" onPress={()=>this.getDetail(v.id,nav)}>
                 <View style={{paddingHorizontal:15,paddingVertical:15,borderBottomWidth:1,borderColor:'#eee'}} >
                     <View style={{flexDirection:'row'}}>
-                        <View style={{marginRight:5}}>{v.top?<Text>top</Text>:<Text>{v.tab}</Text>}</View>
+                        <View style={{marginRight:5}}>{v.top?<Text style={{color:'#80bd01'}}>{Filter("top")}</Text>:<Text>{Filter(v.tab)}</Text>}</View>
                         <View style={{flex:1}}><Text numberOfLines={1}>{v.title}</Text></View>
                     </View>
                     <View style={{flexDirection:'row'}}>
@@ -128,8 +125,7 @@ export default class extends Component {
                     onEndReached={()=>this.getMoreData()}
                 />
                 {this.state.loadMore?<ActivityIndicator
-                    toast
-                    text="正在加载"
+                    toast text="正在加载"
                 />:null}
             </View>
         );
