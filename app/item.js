@@ -41,7 +41,6 @@ export default class extends Component {
                     <View style={{flex:1,justifyContent :'space-between'}}>
                         <View>
                             <Text>{v.author.loginname}</Text>
-                            <Text>{this.state.height}</Text>
                         </View>
                     </View>
                 </View>

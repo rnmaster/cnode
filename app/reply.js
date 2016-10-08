@@ -69,12 +69,13 @@ export default class extends Component {
             })
         }
     }
-    async authReply(){
+    async authReply(id){
+        if(id) Toast.info(id)
         let res = await Kstore.get('member')
         let nav = this.props.navigator
         const {topicId} = this.props
         if(res){
-            Toast.info(res.loginName+'已经登录')
+            //Toast.info(res.loginName+'已经登录')
             nav.replace({component:ToReply,params:{
                 topicId:topicId
             }})//没有登录跳去登录
