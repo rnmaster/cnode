@@ -10,7 +10,9 @@ react native for cnode use redux
 + redux-thunk
 
 ## stage-0 
+```javascript
 use {...a,...b} replace Object.assign({a,b})
+`````````````````
 
 ## transform-decorators-legacy
 ```javascript
