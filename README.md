@@ -28,5 +28,5 @@ connect()(a)
 load the functional module when we need!
 
 ## QA
-### SDK location not found. Define location with sdk.dir in the local.properties file or with an ANDROID_HOME environment variable.
-echo "sdk.dir = /Users/$(whoami)/Library/Android/sdk" > android/local.properties
+### Android 
+https://github.com/rnmaster/cnode/wiki/Android-QA
